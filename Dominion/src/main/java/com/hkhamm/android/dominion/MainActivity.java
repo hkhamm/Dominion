@@ -45,47 +45,71 @@ public class MainActivity extends Activity {
 
         GridView treasure = (GridView) findViewById(R.id.treasure);
         treasure.setAdapter(new CardAdapter(this, treasureIds));
-        cardClickListener(treasure);
-
-        GridView victory = (GridView) findViewById(R.id.victory);
-        victory.setAdapter(new CardAdapter(this, victoryIds));
-        cardClickListener(victory);
-
-        GridView fiveCost = (GridView) findViewById(R.id.five_cost);
-        fiveCost.setAdapter(new CardAdapter(this, fiveCostIds));
-        cardClickListener(fiveCost);
-
-        GridView fourCost = (GridView) findViewById(R.id.four_cost);
-        fourCost.setAdapter(new CardAdapter(this, fourCostIds));
-        cardClickListener(fourCost);
-
-        GridView threeCost = (GridView) findViewById(R.id.three_cost);
-        threeCost.setAdapter(new CardAdapter(this, threeCostIds));
-        cardClickListener(threeCost);
-
-        GridView twoCost = (GridView) findViewById(R.id.two_cost);
-        twoCost.setAdapter(new CardAdapter(this, twoCostIds));
-        cardClickListener(twoCost);
-
-        GridView playArea = (GridView) findViewById(R.id.play_area);
-        playArea.setAdapter(new CardAdapter(this, playAreaIds));
-        cardClickListener(playArea);
-
-        GridView hand = (GridView) findViewById(R.id.hand);
-        hand.setAdapter(new CardAdapter(this, handIds));
-        cardClickListener(hand);
-
-        // TODO create end turn button
-
-        //new Game(this);
-    }
-
-    public void cardClickListener(GridView gridView) {
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        treasure.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
+
+        GridView victory = (GridView) findViewById(R.id.victory);
+        victory.setAdapter(new CardAdapter(this, victoryIds));
+        victory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView fiveCost = (GridView) findViewById(R.id.five_cost);
+        fiveCost.setAdapter(new CardAdapter(this, fiveCostIds));
+        fiveCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView fourCost = (GridView) findViewById(R.id.four_cost);
+        fourCost.setAdapter(new CardAdapter(this, fourCostIds));
+        fourCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView threeCost = (GridView) findViewById(R.id.three_cost);
+        threeCost.setAdapter(new CardAdapter(this, threeCostIds));
+        threeCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView twoCost = (GridView) findViewById(R.id.two_cost);
+        twoCost.setAdapter(new CardAdapter(this, twoCostIds));
+        twoCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView playArea = (GridView) findViewById(R.id.play_area);
+        playArea.setAdapter(new CardAdapter(this, playAreaIds));
+        playArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        GridView hand = (GridView) findViewById(R.id.hand);
+        hand.setAdapter(new CardAdapter(this, handIds));
+        hand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // TODO create end turn button
+
+        //new Game(this);
     }
 
     @Override
