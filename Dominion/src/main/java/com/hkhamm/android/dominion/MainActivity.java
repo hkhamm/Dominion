@@ -119,16 +119,40 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    public void setTreasureIds(Integer[] treasureIds) {
+        this.treasureIds = treasureIds;
+    }
+
+    public void setVictoryIds(Integer[] victoryIds) {
+        this.victoryIds = victoryIds;
+    }
+
+    public void setFiveCostIds(Integer[] fiveCostIds) {
+        this.fiveCostIds = fiveCostIds;
+    }
+
+    public void setFourCostIds(Integer[] fourCostIds) {
+        this.fourCostIds = fourCostIds;
+    }
+
+    public void setThreeCostIds(Integer[] threeCostIds) {
+        this.threeCostIds = threeCostIds;
+    }
+
+    public void setTwoCostIds(Integer[] twoCostIds) {
+        this.twoCostIds = twoCostIds;
+    }
+
     public void setPlayAreaIds(Integer[] playAreaIds) {
         this.playAreaIds = playAreaIds;
     }
 
-    public Integer[] getHandIds() {
-        return handIds;
-    }
-
     public void setHandIds(Integer[] handIds) {
         this.handIds = handIds;
+    }
+
+    public Integer[] getHandIds() {
+        return handIds;
     }
     
 }
