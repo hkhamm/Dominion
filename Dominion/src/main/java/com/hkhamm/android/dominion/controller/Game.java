@@ -128,7 +128,7 @@ public class Game implements CardObserver {
         }
     }
 
-    // TODO fix examine card
+    // TODO fix examine card, long press any card in any supply pile and it brings up a floating window with the card description?
     /*
     public void examineCard(ArrayList<SupplyPile> supplyList, int index) {
         int supplyPile;
