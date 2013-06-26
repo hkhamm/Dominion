@@ -13,10 +13,8 @@ public class CellarState extends CardState {
 
     public void execute(Player player, ArrayList<Player> players, Game game) {
         player.setActions(player.getActions() + 1);
-        //int num = game.discardCards(); // TODO access using lists to be made in supply
         int num = 0;
         for (int i = 0; i < num; ++i) {
-            //game.printHand();
             player.discardCard(game.getInput());
         }
         for (int i = 0; i < num; ++i) {
