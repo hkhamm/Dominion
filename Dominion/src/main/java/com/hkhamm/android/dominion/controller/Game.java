@@ -80,32 +80,34 @@ public class Game implements CardObserver {
 
         currentPlayer.setBuyingPower();
 
-        print("Action Phase: Play a card from your hand.");
+        print("Action Phase: Choose a card to play from your hand.");
     }
 
-    public void playAction(int cardIndex) { // TODO connect onClick with playing actions, buying, etc
+    public void playAction(int cardIndex) {
         Card card = currentPlayer.getHand().get(cardIndex);
 
-        if (card instanceof Action ||
-                card instanceof ActionAttack ||
-                card instanceof ActionReaction) {
+        if (card instanceof Action || card instanceof ActionAttack ||
+                card instanceof ActionReaction && currentPlayer.getActions() > 0) {
             print("A " + card.getName() + " was played.");
 
             currentPlayer.playCard(card);
             currentPlayer.setActions(currentPlayer.getActions() - 1);
         }
+        else if (currentPlayer.getActions() == 0) {
+            print("You have no more actions. Buy a card or end your turn.");
+        }
         else {
             print("You must choose an action, try again.");
-            playAction(cardIndex);
+        }
+
+        if (currentPlayer.getActions() == 0) {
+            print("Buy Phase: Choose a card to buy from the supply.");
         }
     }
 
     public void buyCard(ArrayList<SupplyPile> supplyList, int index) {
         int cardValue = supply.getCost(supplyList, index);
         String cardName = supply.getName(supplyList, index);
-
-
-        print("Choose a card from the supply:");
 
         if (cardValue <= currentPlayer.getBuyingPower()) {
             print("A " + cardName + " was purchased.");
