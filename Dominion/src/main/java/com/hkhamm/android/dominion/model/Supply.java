@@ -1,7 +1,5 @@
 package com.hkhamm.android.dominion.model;
 
-import android.widget.GridView;
-
 import com.hkhamm.android.dominion.model.cards.*;
 
 import java.util.ArrayList;
@@ -19,6 +17,12 @@ public class Supply {
 
     public Supply(int numberOfPlayers) {
         cardList = new ArrayList<ArrayList<SupplyPile>>();
+        victorySupply = new ArrayList<SupplyPile>();
+        treasureSupply = new ArrayList<SupplyPile>();
+        fiveCostSupply = new ArrayList<SupplyPile>();
+        fourCostSupply = new ArrayList<SupplyPile>();
+        threeCostSupply = new ArrayList<SupplyPile>();
+        twoCostSupply = new ArrayList<SupplyPile>();
         supplySize = setSupplySize(numberOfPlayers);
 
         createBaseSupply();

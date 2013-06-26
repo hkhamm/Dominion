@@ -83,38 +83,16 @@ public class Game implements CardObserver {
         print("Action Phase: Play a card from your hand.");
     }
 
-    /*
-    private void choosePhase() {
-        int actions = currentPlayer.getActions();
-        int buys = currentPlayer.getBuys();
-        printPlayArea();
-        printNiceHand();
-        int phase = view.choosePhase(actions, buys);
-
-        if (phase == 1) {
-            playAction();
-        }
-        if (phase == 2) {
-            buyCard();
-        }
-        if (phase == 3) {
-            examineCard();
-        }
-        if (phase == 4) {
-            endTurn();
-        }
-
-    }
-    */
-
     public void playAction(int cardIndex) { // TODO connect onClick with playing actions, buying, etc
         Card card = currentPlayer.getHand().get(cardIndex);
+
         if (card instanceof Action ||
                 card instanceof ActionAttack ||
                 card instanceof ActionReaction) {
+            print("A " + card.getName() + " was played.");
+
             currentPlayer.playCard(card);
             currentPlayer.setActions(currentPlayer.getActions() - 1);
-            //choosePhase();
         }
         else {
             print("You must choose an action, try again.");
@@ -130,7 +108,7 @@ public class Game implements CardObserver {
         print("Choose a card from the supply:");
 
         if (cardValue <= currentPlayer.getBuyingPower()) {
-            print("You purchased a " + cardName + ".");
+            print("A " + cardName + " was purchased.");
             buyFlag = true;
             supply.purchaseCard(supplyList, index, currentPlayer);
             currentPlayer.setBuys(currentPlayer.getBuys() - 1);
@@ -146,7 +124,6 @@ public class Game implements CardObserver {
         else {
             print("You can't afford a " + cardName + ". Try again.");
         }
-        //choosePhase();
     }
 
     // TODO fix examine card
@@ -168,6 +145,10 @@ public class Game implements CardObserver {
         buyFlag = false;
         print("End turn.");
 
+        if (supply.getProvinces() == 0 && currentPlayerIndex == 0) {
+            endGame();
+        }
+
         for (ArrayList<SupplyPile> supplyPileList : supply.getCardList()) {
             for (SupplyPile pile : supplyPileList) {
                 if (pile.size() == 0) {
@@ -176,7 +157,7 @@ public class Game implements CardObserver {
             }
         }
 
-        if (emptySupply >= 3) {
+        if (emptySupply >= 3 && currentPlayerIndex == 0) {
             endGame();
         }
         else {
@@ -190,6 +171,8 @@ public class Game implements CardObserver {
         else {
             currentPlayerIndex = 0;
         }
+
+        startTurn();
     }
 
     public void endGame() {
@@ -267,42 +250,4 @@ public class Game implements CardObserver {
     public void print(String string) {
         textView.append(string);
     }
-
-    /*
-    public Card chooseTreasure() {
-        return view.chooseTreasure(currentPlayer, this);
-    }
-
-    public int discardCards() {
-        return view.discardCards();
-    }
-
-    public void printControlledSupply(int cost) {
-        view.printControlledSupply(supply, cost);
-    }
-
-    public void printBack() {
-        view.printBack();
-    }
-
-    public void printHand() {
-        view.printHand(currentPlayer);
-    }
-
-    public void printNiceHand() {
-        view.printNiceHand(currentPlayer);
-    }
-
-    public void printPlayArea() {
-        view.printPlayArea(currentPlayer);
-    }
-
-    public int getInput() {
-        return view.chooseInt();
-    }
-
-    public static void main(String[] args) {
-        new Game();
-    }
-    */
 }
