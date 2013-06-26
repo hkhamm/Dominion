@@ -27,7 +27,7 @@ public class Game implements CardObserver {
 
     public Game(MainActivity main) {
         this.main = main;
-        textView = (TextView) main.findViewById(R.id.play_area);
+        textView = (TextView) main.findViewById(R.id.messages);
         cardState = new CardState();
         numberOfPlayers = 2;
         supply = new Supply(numberOfPlayers);
@@ -38,7 +38,7 @@ public class Game implements CardObserver {
 
         addAsObserver();
         getStartingDecks();
-        playGame();
+        startTurn();
     }
 
     private void getStartingDecks() {
@@ -73,36 +73,14 @@ public class Game implements CardObserver {
         main.setHandIds(handIds);
     }
 
-    private void playGame() {
-        while (supply.getProvinces() > 0) {
-            currentPlayer = turnOrder.get(currentPlayerIndex);
+    private void startTurn() {
+        currentPlayer = turnOrder.get(currentPlayerIndex);
 
-            for (SupplyPile pile : supply.getCardList()) {
-                if (pile.size() == 0) {
-                    emptySupply += 1;
-                }
-            }
+        print(currentPlayer.getName() + "'s Turn");
 
-            if (emptySupply >= 3) {
-                break;
-            }
-            else {
-                emptySupply = 0;
-            }
+        currentPlayer.setBuyingPower();
 
-            print(currentPlayer.getName() + "'s Turn");
-
-            currentPlayer.setBuyingPower();
-
-            print("Action Phase: Play a card from your hand.");
-
-            //choosePhase();
-
-            // if (currentPlayerIndex == 0)  // one round test
-            //     break;
-        }
-        Collections.sort(turnOrder, new PlayerComparator());
-        endGame();
+        print("Action Phase: Play a card from your hand.");
     }
 
     /*
@@ -129,9 +107,7 @@ public class Game implements CardObserver {
     }
     */
 
-    private void playAction() { // TODO connect onClick with playing actions, buying, etc
-        int cardIndex = 0;
-
+    public void playAction(int cardIndex) { // TODO connect onClick with playing actions, buying, etc
         Card card = currentPlayer.getHand().get(cardIndex);
         if (card instanceof Action ||
                 card instanceof ActionAttack ||
@@ -142,22 +118,21 @@ public class Game implements CardObserver {
         }
         else {
             print("You must choose an action, try again.");
-            playAction();
+            playAction(cardIndex);
         }
     }
 
-    private void buyCard() {
-        int supplyPile = 0;
-        int cardValue = 0;
-        String cardName = supply.getName(supplyPile);
-        cardValue += supply.getCost(supplyPile);
+    public void buyCard(ArrayList<SupplyPile> supplyList, int index) {
+        int cardValue = supply.getCost(supplyList, index);
+        String cardName = supply.getName(supplyList, index);
+
 
         print("Choose a card from the supply:");
 
         if (cardValue <= currentPlayer.getBuyingPower()) {
             print("You purchased a " + cardName + ".");
             buyFlag = true;
-            supply.purchaseCard(supplyPile, currentPlayer);
+            supply.purchaseCard(supplyList, index, currentPlayer);
             currentPlayer.setBuys(currentPlayer.getBuys() - 1);
 
             for (int i = 0; i < currentPlayer.getHand().size(); ++i) {
@@ -174,10 +149,12 @@ public class Game implements CardObserver {
         //choosePhase();
     }
 
-    private void examineCard() {
+    // TODO fix examine card
+    /*
+    public void examineCard(ArrayList<SupplyPile> supplyList, int index) {
         int supplyPile;
 
-        print("\nChoose a card to examine:");
+        print("Choose a card to examine.");
         supplyPile = 0;
 
         Card card = supply.getCardList().get(supplyPile).getCard();
@@ -185,10 +162,27 @@ public class Game implements CardObserver {
         print("Cost: " + card.getCost());
         print(card.getDescription());
     }
+    */
 
     private void endTurn() {
         buyFlag = false;
         print("End turn.");
+
+        for (ArrayList<SupplyPile> supplyPileList : supply.getCardList()) {
+            for (SupplyPile pile : supplyPileList) {
+                if (pile.size() == 0) {
+                    emptySupply += 1;
+                }
+            }
+        }
+
+        if (emptySupply >= 3) {
+            endGame();
+        }
+        else {
+            emptySupply = 0;
+        }
+
         currentPlayer.cleanUp();
         if (currentPlayerIndex != numberOfPlayers - 1) {
             currentPlayerIndex++;
@@ -199,6 +193,7 @@ public class Game implements CardObserver {
     }
 
     public void endGame() {
+        Collections.sort(turnOrder, new PlayerComparator());
         print("Game over.");
 
         int victoryPoints = 0;
@@ -245,9 +240,9 @@ public class Game implements CardObserver {
     }
 
     private void addAsObserver() {
-        for (SupplyPile supplyPile : supply.getCardList()) {
-            for (Card card : supplyPile.getPile()) {
-                card.addObserver(this);
+        for (ArrayList<SupplyPile> supplyPileList : supply.getCardList()) {
+            for (SupplyPile pile : supplyPileList) {
+                pile.getCard().addObserver(this);
             }
         }
     }
@@ -271,11 +266,6 @@ public class Game implements CardObserver {
 
     public void print(String string) {
         textView.append(string);
-    }
-
-    public int getInput() {
-        //return view.chooseInt();
-        return 0;
     }
 
     /*

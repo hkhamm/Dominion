@@ -1,92 +1,130 @@
 package com.hkhamm.android.dominion.model;
 
+import android.widget.GridView;
+
 import com.hkhamm.android.dominion.model.cards.*;
 
 import java.util.ArrayList;
 
 public class Supply {
 
-    private ArrayList<SupplyPile> cardList; // TODO create lists for every gridView in the supply
+    private ArrayList<ArrayList<SupplyPile>> cardList;
+    private ArrayList<SupplyPile> victorySupply;
+    private ArrayList<SupplyPile> treasureSupply;
+    private ArrayList<SupplyPile> fiveCostSupply;
+    private ArrayList<SupplyPile> fourCostSupply;
+    private ArrayList<SupplyPile> threeCostSupply;
+    private ArrayList<SupplyPile> twoCostSupply;
     private int supplySize;
 
     public Supply(int numberOfPlayers) {
-        cardList = new ArrayList<SupplyPile>();
+        cardList = new ArrayList<ArrayList<SupplyPile>>();
         supplySize = setSupplySize(numberOfPlayers);
 
         createBaseSupply();
         createActionSupply();
+        createCardList();
     }
 
     private void createBaseSupply() {
         SupplyPile estates = new SupplyPile(new Estate(), supplySize);
-        cardList.add(estates);
+        victorySupply.add(estates);
 
         SupplyPile duchies = new SupplyPile(new Duchy(), supplySize);
-        cardList.add(duchies);
+        victorySupply.add(duchies);
 
         SupplyPile provinces = new SupplyPile(new Province(), supplySize);
-        cardList.add(provinces);
-
-        SupplyPile copper = new SupplyPile(new Copper(), 60);
-        cardList.add(copper);
-
-        SupplyPile silver = new SupplyPile(new Silver(), 40);
-        cardList.add(silver);
+        victorySupply.add(provinces);
 
         SupplyPile gold = new SupplyPile(new Gold(), 30);
-        cardList.add(gold);
+        treasureSupply.add(gold);
+
+        SupplyPile silver = new SupplyPile(new Silver(), 40);
+        treasureSupply.add(silver);
+
+        SupplyPile copper = new SupplyPile(new Copper(), 60);
+        treasureSupply.add(copper);
     }
 
     private void createActionSupply() {
-    // TODO add supplyPiles to their unique supply row lists, then to their respective gridView lists
-        SupplyPile cellar = new SupplyPile(new Cellar(), 10);
-        cardList.add(cellar);
 
         SupplyPile market = new SupplyPile(new Market(), 10);
-        cardList.add(market);
+        fiveCostSupply.add(market);
 
         SupplyPile militia = new SupplyPile(new Militia(), 10);
-        cardList.add(militia);
+        fourCostSupply.add(militia);
 
         SupplyPile mine = new SupplyPile(new Mine(), 10);
-        cardList.add(mine);
-
-        SupplyPile moat = new SupplyPile(new Moat(), 10);
-        cardList.add(moat);
+        fourCostSupply.add(mine);
 
         SupplyPile remodel = new SupplyPile(new Remodel(), 10);
-        cardList.add(remodel);
+        fourCostSupply.add(remodel);
 
         SupplyPile smithy = new SupplyPile(new Smithy(), 10);
-        cardList.add(smithy);
+        fourCostSupply.add(smithy);
 
         SupplyPile village = new SupplyPile(new Village(), 10);
-        cardList.add(village);
+        threeCostSupply.add(village);
 
         SupplyPile woodcutter = new SupplyPile(new Woodcutter(), 10);
-        cardList.add(woodcutter);
+        threeCostSupply.add(woodcutter);
 
         SupplyPile workshop = new SupplyPile(new Workshop(), 10);
-        cardList.add(workshop);
+        threeCostSupply.add(workshop);
+
+        SupplyPile cellar = new SupplyPile(new Cellar(), 10);
+        twoCostSupply.add(cellar);
+
+        SupplyPile moat = new SupplyPile(new Moat(), 10);
+        twoCostSupply.add(moat);
     }
 
-    public ArrayList<SupplyPile> getCardList() {
+    private void createCardList() {
+        cardList.add(victorySupply);
+        cardList.add(treasureSupply);
+        cardList.add(fiveCostSupply);
+        cardList.add(fourCostSupply);
+        cardList.add(threeCostSupply);
+        cardList.add(twoCostSupply);
+    }
+
+    public ArrayList<ArrayList<SupplyPile>> getCardList() {
         return cardList;
     }
 
-    public void set(int index, SupplyPile supplyPile) {
-        cardList.set(index, supplyPile);
+    public ArrayList<SupplyPile> getVictorySupply() {
+        return victorySupply;
     }
 
-    public Card getCard(int pileIndex) {
+    public ArrayList<SupplyPile> getTreasureSupply() {
+        return treasureSupply;
+    }
+
+    public ArrayList<SupplyPile> getFiveCostSupply() {
+        return fiveCostSupply;
+    }
+
+    public ArrayList<SupplyPile> getFourCostSupply() {
+        return fourCostSupply;
+    }
+
+    public ArrayList<SupplyPile> getThreeCostSupply() {
+        return threeCostSupply;
+    }
+
+    public ArrayList<SupplyPile> getTwoCostSupply() {
+        return twoCostSupply;
+    }
+
+    public Card getCard(ArrayList<SupplyPile> cardList, int pileIndex) {
         return cardList.get(pileIndex).getCard();
     }
 
-    public int getCost(int pileIndex) {
+    public int getCost(ArrayList<SupplyPile> cardList, int pileIndex) {
         return cardList.get(pileIndex).getCost();
     }
 
-    public String getName(int pileIndex) {
+    public String getName(ArrayList<SupplyPile> cardList, int pileIndex) {
         return cardList.get(pileIndex).getCard().getName();
     }
 
@@ -99,10 +137,10 @@ public class Supply {
     }
 
     public int getProvinces() {
-        return cardList.get(2).size();
+        return victorySupply.get(2).size();
     }
 
-    public void purchaseCard(int index, Player player) {
+    public void purchaseCard(ArrayList<SupplyPile> cardList, int index, Player player) {
         Card card = cardList.get(index).drawCard();
         player.purchaseCard(card);
     }

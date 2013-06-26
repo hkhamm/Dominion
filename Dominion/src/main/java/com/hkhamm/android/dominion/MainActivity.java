@@ -10,84 +10,92 @@ import android.widget.Toast;
 
 import com.hkhamm.android.dominion.controller.Game;
 import com.hkhamm.android.dominion.model.CardAdapter;
+import com.hkhamm.android.dominion.model.Supply;
+import com.hkhamm.android.dominion.model.SupplyPile;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private Integer[] treasureIds = {
-            R.drawable.gold, R.drawable.silver, R.drawable.copper
-    };
-    private Integer[] victoryIds = {
-            R.drawable.estate, R.drawable.duchy, R.drawable.province
-    };
-    private Integer[] fiveCostIds = {
-            R.drawable.action, R.drawable.action,
-            R.drawable.action, R.drawable.action, R.drawable.action
-    };
-    private Integer[] fourCostIds = {
-            R.drawable.action, R.drawable.action,
-            R.drawable.action, R.drawable.action
-    };
-    private Integer[] threeCostIds = {
-            R.drawable.action, R.drawable.action,
-            R.drawable.action
-    };
-    private Integer[] twoCostIds = {
-            R.drawable.action, R.drawable.action
-    };
+    private Game game;
+    private Supply supply;
 
+    private Integer[] treasureIds = {};
+    private Integer[] victoryIds = {};
+    private Integer[] fiveCostIds = {};
+    private Integer[] fourCostIds = {};
+    private Integer[] threeCostIds = {};
+    private Integer[] twoCostIds = {};
     private Integer[] playAreaIds = {};
-    private Integer[] handIds = {R.drawable.action};
+    private Integer[] handIds = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        game = new Game(this);
+        supply = game.getSupply();
+        // TODO Add option to select supply. Random, choose individual cards, or choose a pre-made list,
+        // TODO Then set this in supply
+
         GridView treasure = (GridView) findViewById(R.id.treasure);
+        treasureIds = fillSupply(supply.getTreasureSupply());
         treasure.setAdapter(new CardAdapter(this, treasureIds));
         treasure.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getTreasureSupply(), position);
             }
         });
 
         GridView victory = (GridView) findViewById(R.id.victory);
+        victoryIds = fillSupply(supply.getVictorySupply());
         victory.setAdapter(new CardAdapter(this, victoryIds));
         victory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getVictorySupply(), position);
             }
         });
 
         GridView fiveCost = (GridView) findViewById(R.id.five_cost);
+        fiveCostIds = fillSupply(supply.getFiveCostSupply());
         fiveCost.setAdapter(new CardAdapter(this, fiveCostIds));
         fiveCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getFiveCostSupply(), position);
             }
         });
 
         GridView fourCost = (GridView) findViewById(R.id.four_cost);
+        fourCostIds = fillSupply(supply.getFourCostSupply());
         fourCost.setAdapter(new CardAdapter(this, fourCostIds));
         fourCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getFourCostSupply(), position);
             }
         });
 
         GridView threeCost = (GridView) findViewById(R.id.three_cost);
+        threeCostIds = fillSupply(supply.getThreeCostSupply());
         threeCost.setAdapter(new CardAdapter(this, threeCostIds));
         threeCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getThreeCostSupply(), position);
             }
         });
 
         GridView twoCost = (GridView) findViewById(R.id.two_cost);
+        twoCostIds = fillSupply(supply.getTwoCostSupply());
         twoCost.setAdapter(new CardAdapter(this, twoCostIds));
         twoCost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.buyCard(supply.getTwoCostSupply(), position);
             }
         });
 
@@ -95,7 +103,7 @@ public class MainActivity extends Activity {
         playArea.setAdapter(new CardAdapter(this, playAreaIds));
         playArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -103,13 +111,12 @@ public class MainActivity extends Activity {
         hand.setAdapter(new CardAdapter(this, handIds));
         hand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                game.playAction(position);
             }
         });
 
         // TODO create end turn button
-
-        //new Game(this);
     }
 
     @Override
@@ -117,6 +124,17 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public Integer[] fillSupply(ArrayList<SupplyPile> supplyList) {
+        int size = supplyList.size();
+        Integer[] cardIdList = new Integer[size];
+
+        for (int i = 0; i < size; ++i) {
+            cardIdList[i] = supplyList.get(i).getDrawable();
+        }
+
+        return cardIdList;
     }
 
     public void setTreasureIds(Integer[] treasureIds) {
