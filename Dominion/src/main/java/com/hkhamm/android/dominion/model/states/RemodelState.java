@@ -1,8 +1,7 @@
 package com.hkhamm.android.dominion.model.states;
 
-import com.hkhamm.android.dominion.controller.Game;
+import com.hkhamm.android.dominion.Game;
 import com.hkhamm.android.dominion.model.Player;
-import com.hkhamm.android.dominion.model.cards.Card;
 
 import java.util.ArrayList;
 

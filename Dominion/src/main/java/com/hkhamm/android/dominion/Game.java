@@ -1,4 +1,4 @@
-package com.hkhamm.android.dominion.controller;
+package com.hkhamm.android.dominion;
 
 import android.widget.TextView;
 
