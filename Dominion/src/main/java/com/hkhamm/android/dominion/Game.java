@@ -1,9 +1,8 @@
 package com.hkhamm.android.dominion;
 
+import android.widget.GridView;
 import android.widget.TextView;
 
-import com.hkhamm.android.dominion.MainActivity;
-import com.hkhamm.android.dominion.R;
 import com.hkhamm.android.dominion.model.*;
 import com.hkhamm.android.dominion.model.cards.*;
 import com.hkhamm.android.dominion.model.states.*;
@@ -14,7 +13,6 @@ public class Game implements CardObserver {
 
     private MainActivity main;
     private TextView textView;
-
     private Supply supply;
     private ArrayList<Card> trash;
     private ArrayList<Player> turnOrder;
@@ -82,6 +80,7 @@ public class Game implements CardObserver {
 
         currentPlayer.setBuyingPower();
 
+        refreshPlayerArea();
 
         print("Buying Power: " + currentPlayer.getBuyingPower());
         print("Play an action or buy a card.");
@@ -91,7 +90,7 @@ public class Game implements CardObserver {
         Card card = currentPlayer.getHand().get(cardIndex);
 
         if (card instanceof Action || card instanceof ActionAttack ||
-                card instanceof ActionReaction && currentPlayer.getActions() > 0) {
+                card instanceof ActionReaction && currentPlayer.getActions() > 0 && !buyFlag) {
             print("A " + card.getName() + " was played.");
 
             currentPlayer.playCard(card);
@@ -133,35 +132,38 @@ public class Game implements CardObserver {
         }
     }
 
+    /**
+     * Moves all cards from the hand to the play area.
+     */
     private void playHand() {
         main.setPlayAreaIds(main.getHandIds().clone());
         main.setHandIds(new Integer[0]);
 
-        CardAdapter playAreaCardAdaptor = new CardAdapter(main, main.getPlayAreaIds());
-        main.getPlayArea().invalidateViews();
-        main.getPlayArea().setAdapter(playAreaCardAdaptor);
-
-        CardAdapter handCardAdaptor = new CardAdapter(main, main.getHandIds());
-        main.getHand().invalidateViews();
-        main.getHand().setAdapter(handCardAdaptor);
+        refreshPlayerArea();
     }
 
-    // TODO fix examine card, long press any card in any supply pile and it brings up a floating window with the card description?
-    /*
+    private void refreshPlayerArea() {
+        refreshGridView(main.getPlayArea(), main.getPlayAreaIds());
+        refreshGridView(main.getHand(), main.getHandIds());
+    }
+
+    private void refreshGridView(GridView gridView, Integer[] drawableIds) {
+        CardAdapter cardAdaptor = new CardAdapter(main, drawableIds);
+        gridView.invalidateViews();
+        gridView.setAdapter(cardAdaptor);
+    }
+
+    // TODO bring up a floating window with the card description
     public void examineCard(ArrayList<SupplyPile> supplyList, int index) {
-        int supplyPile;
-
         print("Choose a card to examine.");
-        supplyPile = 0;
 
-        Card card = supply.getCardList().get(supplyPile).getCard();
+        Card card = supply.getCard(supplyList, index);
         print("Name: " + card.getName());
         print("Cost: " + card.getCost());
         print(card.getDescription());
     }
-    */
 
-    private void endTurn() {
+    public void endTurn() {
         buyFlag = false;
         print("End turn.");
 

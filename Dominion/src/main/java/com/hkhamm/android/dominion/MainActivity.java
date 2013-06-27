@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.hkhamm.android.dominion.model.CardAdapter;
 import com.hkhamm.android.dominion.model.Supply;
@@ -50,6 +51,13 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 game.buyCard(supply.getTreasureSupply(), position);
+            }
+        });
+        treasure.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getTreasureSupply(), position);
+                return false;
             }
         });
 
@@ -121,8 +129,6 @@ public class MainActivity extends Activity {
                 game.playAction(position);
             }
         });
-
-        // TODO create end turn button
     }
 
     @Override
@@ -130,6 +136,10 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public void endTurn(View view) {
+        game.endTurn();
     }
 
     public Integer[] fillSupply(ArrayList<SupplyPile> supplyList) {

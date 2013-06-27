@@ -8,5 +8,6 @@
     <string name="play_area">Play Area</string>
     <string name="hand">Hand</string>
     <string name="message">Messages…</string>
+    <string name="end_turn_button">End Turn</string>
 
 </resources>

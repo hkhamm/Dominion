@@ -18,7 +18,7 @@
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
               android:gravity="center"
-              android:paddingTop="65dp"/>
+              android:paddingTop="65dp" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/victory"
@@ -42,7 +42,7 @@
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
               android:layout_below="@+id/victory"
-              android:layout_toRightOf="@+id/treasure"/>
+              android:layout_toRightOf="@+id/treasure" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/four_cost"
@@ -54,7 +54,7 @@
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
               android:layout_below="@+id/five_cost"
-              android:layout_toRightOf="@+id/treasure"/>
+              android:layout_toRightOf="@+id/treasure" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/three_cost"
@@ -66,7 +66,7 @@
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
               android:layout_below="@+id/four_cost"
-              android:layout_toRightOf="@+id/treasure"/>
+              android:layout_toRightOf="@+id/treasure" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/two_cost"
@@ -78,7 +78,7 @@
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
               android:layout_below="@+id/three_cost"
-              android:layout_toRightOf="@+id/treasure"/>
+              android:layout_toRightOf="@+id/treasure" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/play_area"
@@ -89,7 +89,7 @@
               android:verticalSpacing="0dp"
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
-              android:layout_below="@+id/two_cost"/>
+              android:layout_below="@+id/two_cost" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/hand"
@@ -100,13 +100,21 @@
               android:verticalSpacing="0dp"
               android:horizontalSpacing="0dp"
               android:stretchMode="columnWidth"
-              android:layout_below="@+id/play_area"/>
+              android:layout_below="@+id/play_area" />
 
-    <TextView android:id="@+id/messages"
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/messages"
               android:layout_width="match_parent"
               android:layout_height="65dp"
               android:layout_below="@+id/hand"
-              android:hint="@string/message"
-            />
+              android:hint="@string/message" />
+
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/end_turn_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/end_turn_button"
+            android:gravity="center_horizontal"
+            android:onClick="endTurn" />
 
 </RelativeLayout>

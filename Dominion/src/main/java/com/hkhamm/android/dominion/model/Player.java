@@ -12,7 +12,6 @@ public class Player implements Comparable<Player> {
     private ArrayList<Card> discardPile;
     private ArrayList<Card> playArea;
     private ArrayList<Card> hand;
-
     private int buyingPower;
     private int usedBuyingPower;
     private int tempBuyingPower;
@@ -77,7 +76,7 @@ public class Player implements Comparable<Player> {
         tempBuyingPower = 0;
         usedBuyingPower = 0;
         drawCards(5);
-        setBuyingPower();
+        setBuyingPower(); // Necessary?
     }
 
     public void discardCard(Card card, ArrayList<Card> origin) {
