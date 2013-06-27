@@ -38,6 +38,8 @@ public class Game implements CardObserver {
 
         addAsObserver();
         getStartingDecks();
+        currentPlayer = turnOrder.get(currentPlayerIndex);
+        setHandIds(currentPlayer);
         startTurn();
     }
 
@@ -72,15 +74,23 @@ public class Game implements CardObserver {
         main.setHandIds(handIds);
     }
 
+    private void setPlayAreaIds(Player player) {
+        Integer[] playAreaIds = new Integer[player.getPlayArea().size()];
+
+        for (int i = 0; i < player.getPlayArea().size(); ++i) {
+            playAreaIds[i] = player.getPlayArea().get(i).getDrawable();
+        }
+
+        main.setHandIds(playAreaIds);
+    }
+
     private void startTurn() {
-        currentPlayer = turnOrder.get(currentPlayerIndex);
-        setHandIds(currentPlayer);
 
         print(currentPlayer.getName() + "'s Turn");
 
         currentPlayer.setBuyingPower();
 
-        refreshPlayerArea();
+        //refreshPlayerArea();
 
         print("Buying Power: " + currentPlayer.getBuyingPower());
         print("Play an action or buy a card.");
@@ -155,8 +165,6 @@ public class Game implements CardObserver {
 
     // TODO bring up a floating window with the card description
     public void examineCard(ArrayList<SupplyPile> supplyList, int index) {
-        print("Choose a card to examine.");
-
         Card card = supply.getCard(supplyList, index);
         print("Name: " + card.getName());
         print("Cost: " + card.getCost());
@@ -194,6 +202,10 @@ public class Game implements CardObserver {
             currentPlayerIndex = 0;
         }
 
+        currentPlayer = turnOrder.get(currentPlayerIndex);
+        setHandIds(currentPlayer);
+        //setPlayAreaIds(currentPlayer); // TODO clear play area before starting a new turn
+        refreshPlayerArea();
         startTurn();
     }
 
