@@ -29,6 +29,12 @@ public class MainActivity extends Activity {
     private Integer[] playAreaIds = {};
     private Integer[] handIds = {};
 
+    private GridView playArea;
+    private GridView hand;
+
+    private CardAdapter playAreaCardAdaptor;
+    private CardAdapter handCardAdaptor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,16 +105,18 @@ public class MainActivity extends Activity {
             }
         });
 
-        GridView playArea = (GridView) findViewById(R.id.play_area);
-        playArea.setAdapter(new CardAdapter(this, playAreaIds));
+        playArea = (GridView) findViewById(R.id.play_area);
+        playAreaCardAdaptor = new CardAdapter(this, playAreaIds);
+        playArea.setAdapter(playAreaCardAdaptor);
         playArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
-        GridView hand = (GridView) findViewById(R.id.hand);
-        hand.setAdapter(new CardAdapter(this, handIds));
+        hand = (GridView) findViewById(R.id.hand);
+        handCardAdaptor = new CardAdapter(this, handIds);
+        hand.setAdapter(handCardAdaptor);
         hand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
@@ -161,6 +169,10 @@ public class MainActivity extends Activity {
         this.twoCostIds = twoCostIds;
     }
 
+    public Integer[] getPlayAreaIds() {
+        return playAreaIds;
+    }
+
     public void setPlayAreaIds(Integer[] playAreaIds) {
         this.playAreaIds = playAreaIds;
     }
@@ -172,5 +184,20 @@ public class MainActivity extends Activity {
     public Integer[] getHandIds() {
         return handIds;
     }
-    
+
+    public GridView getPlayArea() {
+        return playArea;
+    }
+
+    public GridView getHand() {
+        return hand;
+    }
+
+    public CardAdapter getHandCardAdaptor() {
+        return handCardAdaptor;
+    }
+
+    public CardAdapter getPlayAreaCardAdaptor() {
+        return playAreaCardAdaptor;
+    }
 }

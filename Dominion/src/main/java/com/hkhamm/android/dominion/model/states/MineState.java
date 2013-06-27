@@ -17,10 +17,10 @@ public class MineState extends CardState {
         //Card card = game.chooseTreasure();
         Card card = player.getHand().get(0);
         if (card instanceof Copper) {
-            game.getSupply().getCardList().get(4).drawCard();
+            //game.getSupply().getCardList().get(4).drawCard();
         }
         if (card instanceof Silver) {
-            game.getSupply().getCardList().get(5).drawCard();
+            //game.getSupply().getCardList().get(5).drawCard();
         }
 
         player.getHand().remove(card);

@@ -59,7 +59,6 @@ public class Game implements CardObserver {
 
         for (Player player : turnOrder) {
             player.drawCards(5);
-            setHandIds(player);
         }
     }
 
@@ -75,12 +74,15 @@ public class Game implements CardObserver {
 
     private void startTurn() {
         currentPlayer = turnOrder.get(currentPlayerIndex);
+        setHandIds(currentPlayer);
 
         print(currentPlayer.getName() + "'s Turn");
 
         currentPlayer.setBuyingPower();
 
-        print("Action Phase: Choose a card to play from your hand.");
+
+        print("Buying Power: " + currentPlayer.getBuyingPower());
+        print("Play an action or buy a card.");
     }
 
     public void playAction(int cardIndex) {
@@ -110,6 +112,7 @@ public class Game implements CardObserver {
         String cardName = supply.getName(supplyList, index);
 
         if (cardValue <= currentPlayer.getBuyingPower()) {
+            playHand();
             print("A " + cardName + " was purchased.");
             buyFlag = true;
             supply.purchaseCard(supplyList, index, currentPlayer);
@@ -126,6 +129,19 @@ public class Game implements CardObserver {
         else {
             print("You can't afford a " + cardName + ". Try again.");
         }
+    }
+
+    private void playHand() {
+        main.setPlayAreaIds(main.getHandIds().clone());
+        main.setHandIds(new Integer[0]);
+
+        CardAdapter playAreaCardAdaptor = new CardAdapter(main, main.getPlayAreaIds());
+        main.getPlayArea().invalidateViews();
+        main.getPlayArea().setAdapter(playAreaCardAdaptor);
+
+        CardAdapter handCardAdaptor = new CardAdapter(main, main.getHandIds());
+        main.getHand().invalidateViews();
+        main.getHand().setAdapter(handCardAdaptor);
     }
 
     // TODO fix examine card, long press any card in any supply pile and it brings up a floating window with the card description?
@@ -250,6 +266,6 @@ public class Game implements CardObserver {
     }
 
     public void print(String string) {
-        textView.append(string);
+        textView.append(string + "\n");
     }
 }

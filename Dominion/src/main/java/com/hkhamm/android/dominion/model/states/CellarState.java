@@ -15,7 +15,7 @@ public class CellarState extends CardState {
         player.setActions(player.getActions() + 1);
         int num = 0;
         for (int i = 0; i < num; ++i) {
-            player.discardCard(game.getInput());
+            //player.discardCard(game.getInput());
         }
         for (int i = 0; i < num; ++i) {
             player.drawCards(num);
