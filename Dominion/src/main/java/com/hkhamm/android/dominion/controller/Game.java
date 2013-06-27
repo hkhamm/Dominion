@@ -25,6 +25,8 @@ public class Game implements CardObserver {
     private CardState cardState;
     private boolean buyFlag;
 
+    // TODO add labels to hand and play area, add auto-scrolling to message area, increase message area size
+
     public Game(MainActivity main) {
         this.main = main;
         textView = (TextView) main.findViewById(R.id.messages);
