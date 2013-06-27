@@ -4,9 +4,9 @@
     <string name="app_name">Dominion</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome to Dominion!</string>
-    <string name="supply">Supply</string>
-    <string name="play_area">Play Area</string>
-    <string name="hand">Hand</string>
+    <string name="supply_text">Supply</string>
+    <string name="play_area_text">Play Area</string>
+    <string name="hand_text">Hand</string>
     <string name="message">Messages…</string>
     <string name="end_turn_button">End Turn</string>
 

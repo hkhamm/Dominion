@@ -17,6 +17,7 @@ public class MilitiaState extends CardState {
             if (player != currentPlayer) {
                 while (player.getHand().size() > 3) {
                     game.print("A Militia has been played, you must discard down to 3.");
+                    // TODO fix militiastate
                     //game.printHand();
                     //player.discardCard(game.getInput());
                 }

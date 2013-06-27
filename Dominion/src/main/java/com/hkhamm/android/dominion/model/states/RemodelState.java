@@ -12,6 +12,7 @@ public class RemodelState extends CardState {
     }
 
     public void execute(Player player, ArrayList<Player> players, Game game) {
+        // TODO fix remodelstate
         game.print("You must trash a card.");
         //game.printHand();
         //Card card = player.getHand().get(game.getInput());

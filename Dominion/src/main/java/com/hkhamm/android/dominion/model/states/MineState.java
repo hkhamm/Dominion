@@ -13,6 +13,7 @@ public class MineState extends CardState {
     }
 
     public void execute(Player player, ArrayList<Player> players, Game game) {
+        // TODO fix minestate
         //game.printHand();
         //Card card = game.chooseTreasure();
         Card card = player.getHand().get(0);
