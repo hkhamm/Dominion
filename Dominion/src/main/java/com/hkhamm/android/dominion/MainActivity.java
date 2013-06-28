@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
 
         game = new Game(this);
         supply = game.getSupply();
-        // TODO Add option to select supply. Random, choose individual cards, or choose a pre-made list,
-        // TODO Then set this in supply
+        // TODO Add option to select supply. Random, choose individual cards, or choose a pre-made list
+        // TODO Fix message windows scrolling
 
         GridView treasure = (GridView) findViewById(R.id.treasure);
         treasureIds = fillSupply(supply.getTreasureSupply());
@@ -70,6 +70,13 @@ public class MainActivity extends Activity {
                 game.buyCard(supply.getVictorySupply(), position);
             }
         });
+        victory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getVictorySupply(), position);
+                return false;
+            }
+        });
 
         GridView fiveCost = (GridView) findViewById(R.id.five_cost);
         fiveCostIds = fillSupply(supply.getFiveCostSupply());
@@ -78,6 +85,13 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 game.buyCard(supply.getFiveCostSupply(), position);
+            }
+        });
+        fiveCost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getFiveCostSupply(), position);
+                return false;
             }
         });
 
@@ -90,6 +104,13 @@ public class MainActivity extends Activity {
                 game.buyCard(supply.getFourCostSupply(), position);
             }
         });
+        fourCost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getFourCostSupply(), position);
+                return false;
+            }
+        });
 
         GridView threeCost = (GridView) findViewById(R.id.three_cost);
         threeCostIds = fillSupply(supply.getThreeCostSupply());
@@ -98,6 +119,13 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 game.buyCard(supply.getThreeCostSupply(), position);
+            }
+        });
+        threeCost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getThreeCostSupply(), position);
+                return false;
             }
         });
 
@@ -110,6 +138,13 @@ public class MainActivity extends Activity {
                 game.buyCard(supply.getTwoCostSupply(), position);
             }
         });
+        twoCost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examineCard(supply.getTwoCostSupply(), position);
+                return false;
+            }
+        });
 
         playArea = (GridView) findViewById(R.id.play_area);
         playAreaCardAdaptor = new CardAdapter(this, playAreaIds);
@@ -117,6 +152,13 @@ public class MainActivity extends Activity {
         playArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        playArea.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examinePlayerCard(game.getPlayArea(), position);
+                return false;
             }
         });
 
@@ -127,6 +169,13 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 game.playAction(position);
+            }
+        });
+        hand.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                // Toast.makeText(MainActivity.this, "Treasure " + position, Toast.LENGTH_SHORT).show();
+                game.examinePlayerCard(game.getHand(), position);
+                return false;
             }
         });
     }

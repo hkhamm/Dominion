@@ -164,11 +164,15 @@ public class Game implements CardObserver {
     }
 
     // TODO bring up a floating window with the card description
+
     public void examineCard(ArrayList<SupplyPile> supplyList, int index) {
         Card card = supply.getCard(supplyList, index);
-        print("Name: " + card.getName());
-        print("Cost: " + card.getCost());
-        print(card.getDescription());
+        print("Name: " + card.getName() + " Cost: " + card.getCost() + " Description: " + card.getDescription());
+    }
+
+    public void examinePlayerCard(ArrayList<Card> cardList, int index) {
+        Card card = cardList.get(index);
+        print("Name: " + card.getName() + " Cost: " + card.getCost() + " Description: " + card.getDescription());
     }
 
     public void endTurn() {
@@ -204,7 +208,7 @@ public class Game implements CardObserver {
 
         currentPlayer = turnOrder.get(currentPlayerIndex);
         setHandIds(currentPlayer);
-        //setPlayAreaIds(currentPlayer); // TODO clear play area before starting a new turn
+        main.setPlayAreaIds(new Integer[0]); // TODO clear play area before starting a new turn
         refreshPlayerArea();
         startTurn();
     }
@@ -266,6 +270,14 @@ public class Game implements CardObserver {
 
     public Supply getSupply() {
         return supply;
+    }
+
+    public ArrayList<Card> getPlayArea() {
+        return currentPlayer.getPlayArea();
+    }
+
+    public ArrayList<Card> getHand() {
+        return currentPlayer.getHand();
     }
 
     public ArrayList<Card> getTrash() {

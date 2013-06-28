@@ -127,13 +127,14 @@
     <ScrollView
                 android:id="@+id/messages_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
+                android:fillViewport="true"
                 android:layout_below="@+id/hand" >
 
         <TextView
                   android:id="@+id/messages"
                   android:layout_width="match_parent"
-                  android:layout_height="65dp"
+                  android:layout_height="wrap_content"
                   android:hint="@string/message" />
 
 

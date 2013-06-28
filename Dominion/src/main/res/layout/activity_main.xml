@@ -125,26 +125,26 @@
               android:layout_below="@+id/hand_text" />
 
     <ScrollView
-            android:id="@+id/messages_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/hand" >
+                android:id="@+id/messages_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fillViewport="true"
+                android:layout_below="@+id/hand" >
 
         <TextView
-                android:id="@+id/messages"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:hint="@string/message" />
+                  android:id="@+id/messages"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/message" />
 
 
     </ScrollView>
 
     <Button
             android:id="@+id/end_turn_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/end_turn_button"
-            android:gravity="center_horizontal"
             android:onClick="endTurn"
             android:layout_below="@+id/messages_scroll" />
 
